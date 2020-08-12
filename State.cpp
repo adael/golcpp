@@ -6,6 +6,8 @@ State::State(short cols, short rows)
 	this->rows = rows;
 	this->state.resize(cols * rows);
 	this->newState = this->state;
+	buffer.loadFromFile("beep.wav");
+	sound.setBuffer(buffer);
 }
 
 bool State::isAlive(sf::Vector2i pos) const
@@ -50,8 +52,10 @@ void State::tick()
 			auto pos = sf::Vector2i(x, y);
 			auto vecinos = countAliveNeighbours(pos);
 
-			if (vecinos == 3) {
+			if (vecinos == 3 && !isAlive(pos)) {
 				setAlive(pos);
+				sound.play();
+
 			}
 			else if (vecinos < 2 || vecinos > 3) {
 				setDead(pos);

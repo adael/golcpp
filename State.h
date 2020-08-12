@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class State
 {
@@ -26,5 +27,8 @@ private:
 
 	std::vector<bool> state;
 	std::vector<bool> newState;
+	sf::SoundBuffer buffer;
+	sf::Sound sound;
+
 };
 

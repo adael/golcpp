@@ -24,6 +24,9 @@
     <ClCompile Include="State.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grid.h">
@@ -31,8 +34,8 @@
     </ClInclude>
     <ClInclude Include="State.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="main.h">
+    </ClInclude>    
+    <ClInclude Include="Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

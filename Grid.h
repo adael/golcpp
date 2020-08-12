@@ -1,5 +1,5 @@
 #pragma once
-#include "SFML/Graphics.hpp";
+#include "SFML/Graphics.hpp"
 #include <vector>
 
 class Grid : public sf::Drawable, public sf::Transformable

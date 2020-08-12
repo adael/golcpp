@@ -1,64 +1,52 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "Grid.h";
-#include "State.h";
-#include "main.h"
+#include "Grid.h"
+#include "State.h"
+#include "Controller.h"
 
 int main()
 {
 
-	auto sw = 1000;
-	auto sh = 1000;
-	auto padding = 20;
-	auto size = 20;
+	auto sw = 1920;
+	auto sh = 1080;
+	auto padding = 10;
+	auto size = 15;
 	auto cols = (sw - padding * 2) / size;
 	auto rows = (sh - padding * 2) / size;
-	bool paused = false;
+	bool paused = true;
 
-	sf::RenderWindow window(sf::VideoMode(sw, sh), "Game Of Life");
+	sf::RenderWindow window(sf::VideoMode(sw, sh), "Game Of Life", sf::Style::Fullscreen);
+	window.setFramerateLimit(60);
 
-	Grid grid(rows, cols, size);
+	Grid grid(cols, rows, size);
 	grid.showInnerGrid(true);
 	grid.setPosition(padding, padding);
 
-	State state(rows, cols);
+	State state(cols, rows);
+	Controller controller;
 
 	while (window.isOpen())
 	{
-		sf::Event event;
+
+		controller.handle(window);
 		
-		bool space_pressed = false;
+		if(controller.close_requested){
+			window.close();
+			return 0;
+		}
 
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed) {
-				window.close();
-			}
-
-			if (event.type == sf::Event::KeyPressed) {
-				if (event.key.code == sf::Keyboard::Space) {
-					space_pressed = true;
-				}
-			}
-
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				sf::Vector2i localPosition = sf::Mouse::getPosition(window);
-				if (grid.isPositionInBounds(localPosition)) {
-					sf::Vector2i cellPos = grid.getCellPositionAt(localPosition);
+		if(paused && controller.mouse_clicked){
+			if (grid.isPositionInBounds(controller.mouse_click_position)) {
+				sf::Vector2i cellPos = grid.getCellPositionAt(controller.mouse_click_position);
+				if(controller.mouse_left_button_clicked){
 					state.setAlive(cellPos);
-				}
-			}
-
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-				sf::Vector2i localPosition = sf::Mouse::getPosition(window);
-				if (grid.isPositionInBounds(localPosition)) {
-					sf::Vector2i cellPos = grid.getCellPositionAt(localPosition);
+				}else if(controller.mouse_right_button_clicked){
 					state.setDead(cellPos);
 				}
 			}
 		}
 
-		if (space_pressed) {
+		if (controller.space_pressed) {
 			paused = !paused;
 		}
 
