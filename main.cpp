@@ -15,7 +15,7 @@ int main()
 	auto rows = (sh - padding * 2) / size;
 	bool paused = true;
 
-	sf::RenderWindow window(sf::VideoMode(sw, sh), "Game Of Life", sf::Style::Fullscreen);
+	sf::RenderWindow window(sf::VideoMode(sw, sh), "Game Of Life");
 	window.setFramerateLimit(60);
 
 	Grid grid(cols, rows, size);

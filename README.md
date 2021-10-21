@@ -13,9 +13,7 @@ The executable have to stay with all files of sfml/bin, and beep.wav
 
 ## Compiling on Linux
 
-install sfml-devel
-run make
+1. install sfml-devel
+2. run make
 
-if compiles run it:
-
-release/GameOfLife
+After compiling, run with: `release/GameOfLife`
